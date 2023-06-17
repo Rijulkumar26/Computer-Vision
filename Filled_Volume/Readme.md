@@ -1,4 +1,4 @@
-## Image Segmentation for Filled Volume Analysis
+## Image Segmentation for Filled Volume Analysis using Grabcut
 
 In this project, we aimed to analyze the percentage of filled volume in a series of grayscale images. The goal was to develop a pipeline that would segment the filled volume and calculate the average percentage across multiple images.
 
