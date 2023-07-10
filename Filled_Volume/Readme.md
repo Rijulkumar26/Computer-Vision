@@ -1,29 +1,60 @@
-## Image Segmentation for Filled Volume Analysis using Grabcut
+# Image Processing Analysis for Container and Filled Matter Circumference
 
-In this project, we aimed to analyze the percentage of filled volume in a series of grayscale images. The goal was to develop a pipeline that would segment the filled volume and calculate the average percentage across multiple images.
+## Introduction
+In this report, we present an analysis of an image using various image processing techniques to extract information about the circumference and dimensions of a container and the filled matter within it. The analysis includes steps such as foreground extraction, edge detection, contour finding, and fitting of ellipses.
 
-### Methodology
+## Methodology
+The image processing analysis was performed using the following steps:
 
-1. **Image Preprocessing:** Before segmentation, we applied standard image preprocessing techniques such as denoising and contrast enhancement to enhance the image quality and remove any artifacts that could affect the segmentation results.
+### Data Preparation
+- Importing necessary libraries: NumPy, Pandas, Seaborn, Matplotlib, TensorFlow, OpenCV, and Imutils.
+- Configuring the required libraries and suppressing warning messages.
 
-2. **Segmentation Technique:** We employed the GrabCut algorithm for image segmentation. This algorithm is based on graph cuts and iteratively estimates the foreground (filled volume) and background regions of the image.
+### Foreground Extraction
+- Reading the input image using OpenCV.
+- Defining a mask and initializing background and foreground models.
+- Specifying a rectangular region of interest (ROI) for the container.
+- Applying the GrabCut algorithm to extract the foreground from the image.
+- Displaying the extracted foreground image.
 
-3. **Segmentation Process:** The GrabCut algorithm was applied to each grayscale image in the dataset. The algorithm required the initialization of a mask and background/foreground models. A bounding rectangle was defined around the filled volume to guide the segmentation process. The algorithm iteratively refined the mask to separate the filled volume from the background.
+### Edge Detection
+- Converting the foreground image to grayscale.
+- Applying Gaussian blurring to reduce noise in the image.
+- Plotting a histogram to analyze the pixel intensity distribution.
+- Applying Canny edge detection to detect edges in the blurred image.
 
-4. **Percentage Calculation:** Once the segmentation was performed, we calculated the percentage of filled volume in each segmented image. This was achieved by converting the segmented image to grayscale and counting the number of white pixels (representing the filled volume) in relation to the total number of pixels.
+### Contour Finding and Visualization
+- Finding contours in the edge image using the OpenCV `findContours()` function.
+- Drawing all the contours on a copy of the original image.
+- Filtering the contours based on their area using a threshold value.
+- Computing the convex hull for the filtered contours.
+- Drawing the enclosing curves (ellipse and convex hull) on separate copies of the image.
+- Visualizing the drawn contours and ellipses.
 
-5. **Average Percentage:** Finally, we calculated the average percentage of filled volume across all the images in the dataset. This provided an overall measure of the filled volume distribution.
+### Measurement Extraction
+- Extracting the dimensions (major and minor axis lengths) of the ellipse enclosing the convex hull.
+- Printing the dimensions to provide insights into the size of the container.
 
-### Results
+### Circumference Analysis of Filled Matter
+- Applying a different area threshold to filter contours representing the filled matter.
+- Computing the convex hull for the filtered filled matter contours.
+- Drawing the enclosing curve of the filled matter using the convex hull.
+- Fitting an ellipse to the filled matter contours and visualizing it.
 
-The analysis of the segmented images revealed valuable insights into the filled volume distribution. The average percentage of filled volume across the dataset was calculated to be [insert average percentage here]. This metric serves as a quantitative measure of the extent to which the object in the images is filled.
+### Volume Ratio Calculation
+- Calculating the ratio of the volumes of the container and filled matter based on known radius values and the volume formula for a cone.
 
-The visual representation of the segmented images with bounding rectangles provided a clear illustration of the filled volume regions. The images demonstrated the effectiveness of the segmentation algorithm in isolating the filled volume from the background.
+## Results
+- The image processing analysis successfully extracted the foreground, detected edges, and found contours.
+- The enclosing curves (ellipse and convex hull) provided insights into the shape and size of the container and the filled matter.
+- The dimensions of the ellipse enclosing the convex hull were obtained, offering information about the major and minor axis lengths.
+- The drawn ellipse and convex hull accurately represented the circumference of the filled matter.
+- The volume ratio between the container and the filled matter was calculated based on known radius values.
 
-### Conclusion
+## Conclusion
+The image processing analysis allowed us to gain valuable insights into the circumference and dimensions of the container and the filled matter. The use of techniques such as GrabCut, Canny edge detection, contour finding, and ellipse fitting provided accurate measurements and visual representations of the objects of interest. The obtained volume ratio between the container and the filled matter contributes to a comprehensive understanding of the contents and their relative sizes.
 
-In conclusion, the developed image segmentation pipeline successfully identified and quantified the percentage of filled volume in a series of grayscale images. The GrabCut algorithm, along with appropriate image preprocessing, proved effective in segmenting the filled volume. The average percentage of filled volume provides a useful metric for analyzing the object's filling behavior.
-
-Further research and experimentation can explore alternative segmentation techniques or deep learning-based approaches to improve the accuracy and robustness of the filled volume analysis.
-
----
+## Future Improvements
+- Further optimizations can be explored to enhance the accuracy and efficiency of the image processing algorithms used.
+- Additional analysis techniques such as color segmentation or deep learning models could be incorporated to improve the analysis results.
+- More comprehensive experiments on diverse images and scenarios can be conducted to validate the approach's effectiveness.
